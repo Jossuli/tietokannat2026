@@ -1,0 +1,109 @@
+Owner taulun teko:
+mysql> create table owner (
+    -> ownerID int primary key auto_increment,
+    -> name varchar(25)
+    -> );
+
+
+
+
+Lisätty jälkikäteen tauluun sarakkeet:
+mysql> alter table owner add last_name varchar(255);
+mysql> alter table owner add address varchar(255);
+
+
+
+
+Poistetaan pet-taulusta owner-kenttä. Lisätään sen tilalle viiteavain omistaja-tauluun.
+mysql> ALTER TABLE pet DROP COLUMN owner;
+mysql> ALTER TABLE pet ADD COLUMN petID INT PRIMARY KEY AUTO_INCREMENT;
+mysql> ALTER TABLE pet ADD COLUMN ownerID INT;
+mysql> ALTER TABLE pet ADD CONSTRAINT FOREIGN KEY(ownerID) REFERENCES
+
+
+
+
+Lisätty owner henkilöt seuraavalla tyylillä
+mysql> INSERT INTO owner VALUES (NULL,'Qwen','Stefani','Someaddress 1');
+
+
+
+
+Poistettu Batman ja Jaakob (turhia)
+mysql> delete from owner where name='Batman';
+mysql> delete from owner where name='Jaakob';
+
+
+
+Tauluni tällä hetkellä:
+
+mysql> select *from owner;
++---------+--------+-----------+---------------+
+| OwnerID | name   | last_name | address       |
++---------+--------+-----------+---------------+
+|       1 | Batman | NULL      | NULL          |
+|       2 | Jaakob | NULL      | NULL          |
+|       3 | Harold | Lloyd     | Someaddress 1 |
+|       4 | Qwen   | Stefani   | Someaddress 1 |
+|       5 | Benny  | Hill      | Someaddress 1 |
+|       6 | Diane  | Keaton    | Someaddress 1 |
++---------+--------+-----------+---------------+
+6 rows in set (0.00 sec)
+
+ select *from pet;
++----------+---------+------+------------+------------+-------+---------+
+| name     | species | sex  | birth      | death      | petID | ownerID |
++----------+---------+------+------------+------------+-------+---------+
+| Fluffy   | cat     | f    | 1993-02-04 | NULL       |     1 |    NULL |
+| Claws    | cat     | m    | 1994-03-17 | NULL       |     2 |    NULL |
+| Buffy    | dog     | f    | 1989-05-13 | NULL       |     3 |    NULL |
+| Fang     | dog     | m    | 1990-08-27 | NULL       |     4 |    NULL |
+| Bowser   | dog     | m    | 1998-08-31 | 1995-07-29 |     5 |    NULL |
+| Chirpy   | bird    | f    | 1998-09-11 | NULL       |     6 |    NULL |
+| Slim     | snake   | m    | 1996-04-29 | NULL       |     7 |    NULL |
+| Whistler | bird    | NULL | 1997-12-09 | NULL       |     8 |    NULL |
++----------+---------+------+------------+------------+-------+---------+
+8 rows in set (0.00 sec)
+
+
+lisätään Puffball ja Charlie
+mysql> insert into pet VALUES ('Puffball', 'dog', 'm', '2014-09-04', NULL,9, NULL);
+mysql> INSERT INTO owner VALUES (NULL,'Charlie','Chaplin', NULL);
+
+
+
+
+
+
+
+Join haut ja tarkistukset loppuun:
+komennot on erilaiset, koska minulla on molemmmissa taulukoissa name sarake ja järjestys poikkeaa.
+
+SELECT owner.name, pet.name FROM pet JOIN owner ON pet.ownerID = owner.OwnerID;
+SELECT owner.name, pet.name FROM pet LEFT JOIN owner ON pet.ownerID = owner.OwnerID;
+SELECT owner.name, pet.name FROM pet RIGHT JOIN owner ON pet.ownerID = owner.OwnerID;
+
+mysql> desc pet;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| name    | varchar(20) | YES  |     | NULL    |                |
+| species | varchar(20) | YES  |     | NULL    |                |
+| sex     | char(1)     | YES  |     | NULL    |                |
+| birth   | date        | YES  |     | NULL    |                |
+| death   | date        | YES  |     | NULL    |                |
+| petID   | int         | NO   | PRI | NULL    | auto_increment |
+| ownerID | int         | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> desc owner;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| OwnerID   | int          | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(25)  | YES  |     | NULL    |                |
+| last_name | varchar(255) | YES  |     | NULL    |                |
+| address   | varchar(255) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)

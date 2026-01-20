@@ -1,0 +1,14 @@
+a)
+mysql> select * from language order by name;
+
+b)
+select a.last_name,f.title from film_actor s join film f on s.film_id = f.film_id join actor a on s.actor_id = a.actor_id where last_name = 'Temple';
+
+c)
+mysql>  select a.first_name,a.last_name,f.title from film_actor s join film f on s.film_id = f.film_id join actor a on s.actor_id = a.actor_id where title = 'Ghost Groundhog';
+
+d)
+mysql> select count(*) Horror from category c join film_category f on c.category_id = f.category_id join film s on f.film_id = s.film_id where name = 'Horror';
+
+e)
+mysql> select s.title from category c join film_category f on c.category_id = f.category_id join film s on f.film_id = s.film_id where name='Horror';

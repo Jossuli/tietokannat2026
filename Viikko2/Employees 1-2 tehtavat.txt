@@ -1,0 +1,60 @@
+a)
+mysql> select dept_name from departments;
+
+
+b)
+mysql> select distinct title from titles;
+
+
+c)
+mysql> select min(salary), max(salary) from salaries;
+
+
+d)
+mysql> select avg(salary) from salaries;
+
+
+e)
+mysql> select*from employees where last_name like "Facello";
+
+
+f)
+mysql> SELECT * FROM employees WHERE birth_date BETWEEN '1950-01-01' AND '1950-12-31';
+
+
+g)
+mysql> select gender, count(*) AS maara from employees group by gender;
+
+
+
+
+
+2 osa
+a) 
+mysql> select last_name from employees order by last_name limit 10;
+
+
+b)
+mysql> select last_name, first_name from employees order by last_name limit 10;
+
+c)
+mysql> select * from employees order by hire_date desc limit 5;
+
+d)
+mysql> select first_name, last_name, salary from employees join salaries on employees.emp_no=salaries.emp_no where salary=(select max(salary) from salaries);
+
+e)
+mysql> select first_name, last_name, salary from employees join salaries on employees.emp_no=salaries.emp_no where salary=(select min(salary) from salaries);
+
+f)
+mysql> select first_name, last_name, salary from employees join salaries on employees.emp_no=salaries.emp_no where salary>150000;
+
+
+g)
+mysql> SELECT d.dept_name, COUNT(*) AS Lukumaara FROM departments d JOIN dept_emp de ON d.dept_no = de.dept_no JOIN employees e ON e.emp_no = de.emp_no WHERE d.dept_name IN ('Sales', 'Marketing') GROUP BY d.dept_name;
+
+h)
+SELECT employees.first_name, employees.last_name, departments.dept_name FROM dept_manager JOIN employees ON dept_manager.emp_no = employees.emp_no JOIN departments ON dept_manager.dept_no = departments.dept_no;
+
+i)
+SELECT departments.dept_name, AVG(salaries.salary) AS keskipalkka FROM departments JOIN dept_emp ON departments.dept_no = dept_emp.dept_no JOIN salaries ON dept_emp.emp_no = salaries.emp_no WHERE departments.dept_name IN ('Sales', 'Marketing') GROUP BY departments.dept_name;
