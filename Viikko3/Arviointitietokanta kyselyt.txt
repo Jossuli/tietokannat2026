@@ -1,0 +1,14 @@
+1)Sain näkymään seuraavalla
+mysql> select etunimi, sukunimi, arvosana from arviointi join opiskelija on opiskelija.idOpiskelija=arviointi.idOpiskelija where arvosana like '0';
+
+2)
+mysql> select etunimi, sukunimi, arvosana from arviointi join opintojakso on opintojakso.idOpintojakso=arviointi.idOpintojakso join opiskelija on arviointi.idOpiskelija=opiskelija.idOpiskelija where opintojakso.nimi= 'Tietokannat ja rajapinnat' and arviointi.arvosana >=1;
+
+3)
+mysql> select etunimi, sukunimi, opintojakso.nimi from opintojakso join opiskelija on opiskelija.idOpiskelija=opintojakso.idOpintojakso where opiskelija.etunimi= 'Hessu';
+
+4)
+mysql> select etunimi, AVG(arviointi.arvosana) as keskiarvo from arviointi join opiskelija on opiskelija.idOpiskelija=arviointi.idopiskelija where opiskelija.etunimi= 'Aku';
+
+5)
+mysql> select nimi from opintojakso left join arviointi on opintojakso.idOpintojakso=arviointi.idopintojakso where arviointi.idOpintojakso is NULL;

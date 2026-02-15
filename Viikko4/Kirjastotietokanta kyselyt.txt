@@ -1,0 +1,123 @@
+Lisätään kirjailija:
+mysql> insert into kirjailija values(1,'Vainö','Linna');
+Katsotaan lisäys:
+mysql> select *from kirjailija;
++--------------+---------+----------+
+| idKirjailija | Etunimi | Sukunimi |
++--------------+---------+----------+
+|            1 | Vainö   | Linna    |
++--------------+---------+----------+
+
+Lisätään teos ja katsotaan taulukko:
+mysql> insert into teos values(1,'Tuntematon sotilas',1954, 1, 1);
+mysql> select *from teos;
++--------+--------------------+---------------+--------------+---------+
+| idTeos | Nimi               | Julkaisuvuosi | idKirjailija | idKirja |
++--------+--------------------+---------------+--------------+---------+
+|      1 | Tuntematon sotilas |          1954 |            1 |       1 |
++--------+--------------------+---------------+--------------+---------+
+
+
+
+Lisätään 2 kirjaa ja katsotaan kirja taulukko:
+mysql> insert into kirja values(1,2,1,'v2045');
+mysql> insert into kirja values(2,1,1,'r25');
+mysql> select *from kirja;
++---------+------------------+---------+----------------+
+| idKirja | KokonaisKplMaara | Tilanne | Kirjansijainti |
++---------+------------------+---------+----------------+
+|       1 |                2 |       1 | v2045          |
+|       2 |                1 |       1 | r25            |
++---------+------------------+---------+----------------+
+
+
+
+
+
+
+
+
+
+
+Lisätään uusi kirjailija:
+mysql> insert into kirjailija values(2,'Niklas','Ahnberg');
+
+mysql> select *from kirjailija;
++--------------+---------+----------+
+| idKirjailija | Etunimi | Sukunimi |
++--------------+---------+----------+
+|            1 | Vainö   | Linna    |
+|            2 | Niklas  | Ahnberg  |
++--------------+---------+----------+
+
+Lisätään teos ja kirja:
+mysql> insert into teos values(2,'Kukkainen niitty',1999, 2, 2);
+mysql> insert into kirja values(3,1,0,'r24');
+
+mysql> select *from teos;
++--------+--------------------+---------------+--------------+---------+
+| idTeos | Nimi               | Julkaisuvuosi | idKirjailija | idKirja |
++--------+--------------------+---------------+--------------+---------+
+|      1 | Tuntematon sotilas |          1954 |            1 |       1 |
+|      2 | Kukkainen niitty   |          1999 |            2 |       2 |
++--------+--------------------+---------------+--------------+---------+
+
+mysql> select *from kirja;
++---------+------------------+---------+----------------+
+| idKirja | KokonaisKplMaara | Tilanne | Kirjansijainti |
++---------+------------------+---------+----------------+
+|       1 |                2 |       1 | v2045          |
+|       2 |                1 |       1 | r25            |
+|       3 |                1 |       0 | r24            |
++---------+------------------+---------+----------------+
+
+
+Lisätään kirjalle 'Kukkainen niitty' toinen kirjailija
+mysql> insert into teos values(2,'Kukkainen niitty',1999, 1, 2);
+mysql> select *from teos;
++--------+--------------------+---------------+--------------+---------+
+| idTeos | Nimi               | Julkaisuvuosi | idKirjailija | idKirja |
++--------+--------------------+---------------+--------------+---------+
+|      1 | Tuntematon sotilas |          1954 |            1 |       1 |
+|      2 | Kukkainen niitty   |          1999 |            1 |       2 |
+|      2 | Kukkainen niitty   |          1999 |            2 |       2 |
++--------+--------------------+---------------+--------------+---------+
+
+
+
+
+
+
+
+
+
+Lisätään asiakas:
+mysql> insert into asiakas values(1,'Pekka','Hirvonen', 'Hirventie 2');
+mysql> select *from asiakas;
++-----------+---------+----------+-------------+
+| idAsiakas | Etunimi | Sukunimi | Osoite      |
++-----------+---------+----------+-------------+
+|         1 | Pekka   | Hirvonen | Hirventie 2 |
++-----------+---------+----------+-------------+
+
+
+
+
+Lisätään lainaus ja katsotaan tilanne:
+mysql> insert into lainaus values('2026-02-03','2026-03-03',0,1,2);
+
+mysql> select *from lainaus;
++-------------+--------------+------------+-----------+---------+
+| Lainaus_pvm | Palautus_pvm | Palautettu | idAsiakas | idKirja |
++-------------+--------------+------------+-----------+---------+
+| 2026-02-03  | 2026-03-03   |          0 |         1 |       2 |
++-------------+--------------+------------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select *from asiakas;
++-----------+---------+----------+-------------+
+| idAsiakas | Etunimi | Sukunimi | Osoite      |
++-----------+---------+----------+-------------+
+|         1 | Pekka   | Hirvonen | Hirventie 2 |
++-----------+---------+----------+-------------+
+

@@ -1,0 +1,45 @@
+a)
+
+CREATE DEFINER = CURRENT_USER TRIGGER `arviointi`.`Opiskelija_AFTER_UPDATE`
+AFTER UPDATE ON `Opiskelija` FOR EACH ROW
+BEGIN
+	INSERT INTO Muutokset VALUES( NULL,NOW(),'Muutos opiskelijatauluun');
+END
+
+
+
+
+
+
+b)
+opintojakso liipaisin:
+CREATE DEFINER = CURRENT_USER TRIGGER `Opintojakso_BEFORE_DELETE` BEFORE DELETE ON `Opintojakso` FOR EACH ROW
+BEGIN
+     DECLARE str VARCHAR(145);
+     SET str=CONCAT(OLD.idOpintojakso,' ',OLD.koodi,' ',OLD.Laajuus,' ',OLD.nimi);
+     INSERT INTO Roskakori VALUES(NULL,NOW(),str);
+END
+
+
+
+
+
+opiskelija liipaisin:
+CREATE DEFINER = CURRENT_USER TRIGGER `Opiskelija_BEFORE_DELETE` BEFORE DELETE ON `Opiskelija` FOR EACH ROW
+BEGIN
+     DECLARE str VARCHAR(145);
+     SET str=CONCAT(OLD.idOpiskelija,' ',OLD.Etunimi,' ',OLD.Sukunimi,' ',OLD.osoite,' ',OLD.Luokkatunnus);
+     INSERT INTO Roskakori VALUES(NULL,NOW(),str);
+END
+
+
+
+
+
+arviointi liipaisin:
+CREATE DEFINER = CURRENT_USER TRIGGER `arviointi_BEFORE_DELETE` BEFORE DELETE ON `arviointi` FOR EACH ROW
+BEGIN
+     DECLARE str VARCHAR(145);
+     SET str=CONCAT(OLD.idArviointi,' ',OLD.päivämäärä,' ',OLD.arvosana);
+     INSERT INTO Roskakori VALUES(NULL,NOW(),str);
+END
