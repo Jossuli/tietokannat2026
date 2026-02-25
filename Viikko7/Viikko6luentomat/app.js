@@ -9,6 +9,7 @@ const bookRouter = require('./routes/book');
 const borrowerRouter = require('./routes/borrower');
 const userRouter = require('./routes/user');
 const loginRouter = require('./routes/login');
+const arviointiRouter = require('./routes/arviointi');
 
 var app = express();
 
@@ -22,26 +23,28 @@ app.use('/user', userRouter);
 app.use('/login', loginRouter);
 
 
-app.use(authenticateToken); //all routes below this line are protected
+
+// app.use(authenticateToken); //all routes below this line are protected
 
 app.use('/book', bookRouter);
 app.use('/borrower', borrowerRouter);
+app.use('/arviointi', arviointiRouter);
 
 
 
-function authenticateToken(request, response, next) {
-    const authHeader = request.headers['authorization'];
+// function authenticateToken(request, response, next) {
+//    const authHeader = request.headers['authorization'];
     // Extract token by removing "Bearer " prefix from "Bearer "
-    const token = authHeader && authHeader.split(' ')[1];
+//    const token = authHeader && authHeader.split(' ')[1];
 
-    if (token == null) return response.sendStatus(401);
-    jwt.verify(token, process.env.MY_TOKEN, function(err, user) {
-      if (err) {
-        return response.sendStatus(403);
-      }
-      request.user = user;
-      next();
-    })
-  }
+//    if (token == null) return response.sendStatus(401);
+//    jwt.verify(token, process.env.MY_TOKEN, function(err, user) {
+ //     if (err) {
+ //       return response.sendStatus(403);
+ //     }
+ //     request.user = user;
+ //     next();
+//})
+  // }
 
 module.exports = app;
